@@ -1,8 +1,8 @@
 const router = require(`express`).Router()
-const tokenApiRoute = require(`./tokenApiRoute`)
+const yelp = require(`./yelp`)
 
-// /api/tokenApiRoute
-router.use(`/tokenApiRoute`, tokenApiRoute)
+// /api/yelp
+router.use(`/tokenApiRoute`, yelp)
 
 // 404 response
 router.use((req, res, next) => {
