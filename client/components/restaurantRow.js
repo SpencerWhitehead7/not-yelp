@@ -1,5 +1,5 @@
 import React from 'react'
-import yelpLogo from '../../public/Yelp_trademark_RGB.png'
+// import yelpLogo from '../../public/Yelp_trademark_RGB.png'
 
 const RestaurantRow = props => {
   const {name, rating, price, url} = props.info
