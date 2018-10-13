@@ -2,13 +2,16 @@ const router = require(`express`).Router()
 const axios = require(`axios`)
 const YELP_AUTH_STR = require(process.env.YELP_AUTH_STR || `../../secrets`)
 
-// GET /api/yelp/:city
-router.get(`/:city`, async (req, res, next) => {
+// GET /api/yelp
+router.get(`/`, async (req, res, next) => {
   try{
-    const city = req.params.city
+    let queryString = `?categories=restaurants`
+    Object.keys(req.query).forEach(key => {
+      queryString += `&${key}=${req.query[key]}`
+    })
     const authConfig = {headers : {Authorization : YELP_AUTH_STR}}
     const {data} = await axios.get(
-      `https://api.yelp.com/v3/businesses/search?categories=restaurants&location=${city}`,
+      `https://api.yelp.com/v3/businesses/search${queryString}`,
       authConfig
     )
     res.json(data)

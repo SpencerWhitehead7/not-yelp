@@ -20,7 +20,7 @@ class Main extends React.Component{
   handleSubmit = async event => {
     event.preventDefault()
     try{
-      const {data} = await axios.get(`/api/yelp/${this.state.city}`)
+      const {data} = await axios.get(`/api/yelp/?location=${this.state.city}`)
       console.log(data)
       this.setState({
         restaurants : data.businesses,
