@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 import RestaurantRow from './restaurantRow'
 
@@ -8,6 +9,18 @@ class Main extends React.Component{
     this.state = {
       restaurants : [],
       page : 1,
+    }
+  }
+
+  getRestaurants = async () => {
+    try{
+      const {data} = await axios.get(`/api/yelp/NYC`)
+      console.log(data)
+      this.setState({
+        restaurants : data.businesses,
+      })
+    }catch(err){
+      console.log(err)
     }
   }
 
