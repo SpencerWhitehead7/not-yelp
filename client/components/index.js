@@ -1,20 +1,23 @@
 import React from 'react'
 import axios from 'axios'
 
+import SearchBar from './searchBar'
 import RestaurantRow from './restaurantRow'
 
 class Main extends React.Component{
   constructor(){
     super()
     this.state = {
-      restaurants : [],
+      city : ``,
       page : 1,
+      restaurants : [],
     }
   }
 
-  getRestaurants = async () => {
+  handleSubmit = async event => {
+    event.preventDefault()
     try{
-      const {data} = await axios.get(`/api/yelp/NYC`)
+      const {data} = await axios.get(`/api/yelp/${this.state.city}`)
       console.log(data)
       this.setState({
         restaurants : data.businesses,
@@ -24,14 +27,18 @@ class Main extends React.Component{
     }
   }
 
+  handleChange = event => {
+    this.setState({
+      [event.target.name] : event.target.value,
+    })
+  }
+
   render(){
     console.log(this.state)
-    const {restaurants, page} = this.state
+    const {city, page, restaurants} = this.state
     return (
       <div>
-        <button type="button" onClick={this.getRestaurants}>
-        GET RESTAURANTS
-        </button>
+        <SearchBar handleChange={this.handleChange} handleSubmit={this.handleSubmit} city={city}/>
         {
           restaurants.length > 0 && restaurants.map(restaurant => (
             <RestaurantRow
