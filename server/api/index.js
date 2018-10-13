@@ -2,7 +2,7 @@ const router = require(`express`).Router()
 const yelp = require(`./yelp`)
 
 // /api/yelp
-router.use(`/tokenApiRoute`, yelp)
+router.use(`/yelp`, yelp)
 
 // 404 response
 router.use((req, res, next) => {

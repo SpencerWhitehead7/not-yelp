@@ -13,7 +13,11 @@ router.get(`/:city`, async (req, res, next) => {
     )
     res.json(data)
   }catch(err){
-    next(err)
+    if(err.response.status === 400){
+      res.status(400).send()
+    }else{
+      next(err)
+    }
   }
 })
 
