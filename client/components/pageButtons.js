@@ -11,7 +11,7 @@ const Next = props => <button type="button" name="page" value={props.page + 1}>N
 const Filler = () => <span> . . . </span>
 
 const PageButtons = props => {
-  const {page, changePage, total} = props
+  const {page, handleChange, total} = props
   const firstPage = 1
   const lastPage = Math.ceil(total / 20)
   const visibleButtons = []
@@ -33,7 +33,7 @@ const PageButtons = props => {
     }
   }
   return (
-    <div onClick={changePage}>
+    <div onClick={handleChange}>
 
       {page > firstPage && <Prev page={page}/>}
 

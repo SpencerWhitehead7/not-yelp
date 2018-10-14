@@ -21,6 +21,12 @@ class Main extends React.Component{
     }
   }
 
+  componentDidUpdate = (prevProps, prevState) => {
+    if(prevState.page !== this.state.page){
+      this.callApi(this.state.page)
+    }
+  }
+
   callApi = async page => {
     try{
       let queryString = `?categories=restaurants`
@@ -29,7 +35,8 @@ class Main extends React.Component{
       const {data} = await axios.get(`/api/yelp/`, {params : {queryString}})
       console.log(data)
       this.setState({
-        total : data.total,
+        // Due to API limiting you to only 1000 businesses; offsets higher than 1000 error
+        total : data.total < 1000 ? data.total : 1000,
         restaurants : data.businesses,
         page,
       })
@@ -46,20 +53,20 @@ class Main extends React.Component{
 
   handleChange = event => {
     event.preventDefault()
-    this.setState({[event.target.name] : event.target.value})
+    const target = event.target.name
+    let value = event.target.value
+    // Deals with changing page values
+    if(target === `page`){
+      value = Number(value)
+    }
+    if(typeof value !== `number` || !isNaN(value)){
+      this.setState({[target] : value})
+    }
   }
 
   handleSubmit = event => {
     event.preventDefault()
     this.callApi(1)
-  }
-
-  changePage = event => {
-    event.preventDefault()
-    const newPage = Number(event.target.value)
-    if(newPage){
-      this.callApi(newPage)
-    }
   }
 
   render(){
@@ -81,7 +88,7 @@ class Main extends React.Component{
                 />
               ))
             }
-            <PageButtons page={page} changePage={this.changePage} total={total}/>
+            <PageButtons page={page} handleChange={this.handleChange} total={total}/>
           </div>
         }
       </div>
