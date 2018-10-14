@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 import SearchBar from './searchBar'
+import SortSelect from './sortSelect'
 import ErrorWarning from './errorWarning'
 import RestaurantRow from './restaurantRow'
 import PageButtons from './pageButtons'
@@ -15,6 +16,7 @@ class Main extends React.Component{
       page : 1,
       total : 0,
       restaurants : [],
+      sortBy : `none`,
       error : ``,
     }
   }
@@ -66,6 +68,7 @@ class Main extends React.Component{
     return (
       <div>
         <SearchBar handleChange={this.handleChange} handleSubmit={this.handleSubmit} city={city}/>
+        <SortSelect handleChange={this.handleChange}/>
         {error.length > 0 && <ErrorWarning error={error}/>}
         {
           restaurants.length > 0 &&
