@@ -18,6 +18,7 @@ class Main extends React.Component{
       restaurants : [],
       unsortedRestaurants : [],
       sortBy : `none`,
+      APISort : false,
       error : ``,
     }
   }
@@ -61,6 +62,8 @@ class Main extends React.Component{
       let queryString = `?categories=restaurants`
       queryString += `&location=${this.state.city}`
       queryString += `&offset=${(page - 1) * 20}`
+      // The only (relevant to this project) sorting the API supports is ratingHtL (it uses weighted average, but my sort uses raw rating number)
+      queryString += this.state.APISort ? `&sort_by=rating` : ``
       const {data} = await axios.get(`/api/yelp/`, {params : {queryString}})
       console.log(data)
       const sortedRestaurants = this.sortRestaurants([...data.businesses])
@@ -83,9 +86,9 @@ class Main extends React.Component{
   }
 
   handleChange = event => {
-    event.preventDefault()
+    event.stopPropagation()
     const target = event.target.name
-    let value = event.target.value
+    let value = event.target.type === `checkbox` ? event.target.checked : event.target.value
     // Deals with page values being stored as strings
     if(target === `page`){
       value = Number(value)
@@ -103,10 +106,10 @@ class Main extends React.Component{
 
   render(){
     console.log(this.state)
-    const {city, page, total, restaurants, error} = this.state
+    const {city, page, total, restaurants, APISort, error} = this.state
     return (
       <div>
-        <SearchBar handleChange={this.handleChange} handleSubmit={this.handleSubmit} city={city}/>
+        <SearchBar handleChange={this.handleChange} handleSubmit={this.handleSubmit} city={city} APISort={APISort}/>
         <SortSelect handleChange={this.handleChange}/>
         {error.length > 0 && <ErrorWarning error={error}/>}
         {
