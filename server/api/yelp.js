@@ -5,13 +5,9 @@ const YELP_AUTH_STR = require(process.env.YELP_AUTH_STR || `../../secrets`)
 // GET /api/yelp
 router.get(`/`, async (req, res, next) => {
   try{
-    let queryString = `?categories=restaurants`
-    Object.keys(req.query).forEach(key => {
-      queryString += `&${key}=${req.query[key]}`
-    })
     const authConfig = {headers : {Authorization : YELP_AUTH_STR}}
     const {data} = await axios.get(
-      `https://api.yelp.com/v3/businesses/search${queryString}`,
+      `https://api.yelp.com/v3/businesses/search${req.query.queryString}`,
       authConfig
     )
     res.json(data)

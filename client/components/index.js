@@ -22,7 +22,10 @@ class Main extends React.Component{
   handleSubmit = async event => {
     event.preventDefault()
     try{
-      const {data} = await axios.get(`/api/yelp/?location=${this.state.city}`)
+      let queryString = `?categories=restaurants`
+      queryString += `&location=${this.state.city}`
+      queryString += `&offset=${(this.state.page - 1) * 20}`
+      const {data} = await axios.get(`/api/yelp/`, {params : {queryString}})
       console.log(data)
       this.setState({
         total : data.total,
