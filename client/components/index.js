@@ -19,20 +19,23 @@ class Main extends React.Component{
     }
   }
 
-  handleSubmit = async event => {
-    event.preventDefault()
+  callApi = async page => {
     try{
       let queryString = `?categories=restaurants`
       queryString += `&location=${this.state.city}`
-      queryString += `&offset=${(this.state.page - 1) * 20}`
+      queryString += `&offset=${(page - 1) * 20}`
       const {data} = await axios.get(`/api/yelp/`, {params : {queryString}})
       console.log(data)
       this.setState({
         total : data.total,
         restaurants : data.businesses,
+        page,
       })
     }catch(err){
       this.setState({
+        page : 1,
+        total : 0,
+        restaurants : [],
         error : err.message,
       })
       console.log(err)
@@ -41,18 +44,19 @@ class Main extends React.Component{
 
   handleChange = event => {
     event.preventDefault()
-    this.setState({
-      [event.target.name] : event.target.value,
-    })
+    this.setState({[event.target.name] : event.target.value})
+  }
+
+  handleSubmit = event => {
+    event.preventDefault()
+    this.callApi(1)
   }
 
   changePage = event => {
     event.preventDefault()
     const newPage = Number(event.target.value)
     if(newPage){
-      this.setState({
-        page : Number(event.target.value),
-      })
+      this.callApi(newPage)
     }
   }
 
