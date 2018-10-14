@@ -16,6 +16,7 @@ class Main extends React.Component{
       page : 1,
       total : 0,
       restaurants : [],
+      unsortedRestaurants : [],
       sortBy : `none`,
       error : ``,
     }
@@ -24,6 +25,31 @@ class Main extends React.Component{
   componentDidUpdate = (prevProps, prevState) => {
     if(prevState.page !== this.state.page){
       this.callApi(this.state.page)
+    }
+    if(prevState.sortBy !== this.state.sortBy && this.state.sortBy === `none`){
+      this.setState({restaurants : prevState.unsortedRestaurants})
+    }
+    if(prevState.sortBy !== this.state.sortBy){
+      const sortedRestaurants = [...prevState.unsortedRestaurants]
+      let sortingFn = () => undefined
+      switch(this.state.sortBy){
+        case `ratingHtL`:
+          sortingFn = (a, b) => b.rating - a.rating
+          break
+        case `ratingLtH`:
+          sortingFn = (a, b) => a.rating - b.rating
+          break
+        case `priceLtH`:
+          sortingFn = (a, b) => a.price.length - b.price.length
+          break
+        case `priceHtL`:
+          sortingFn = (a, b) => b.price.length - a.price.length
+          break
+        default:
+          sortingFn = () => undefined
+      }
+      sortedRestaurants.sort(sortingFn)
+      this.setState({restaurants : sortedRestaurants})
     }
   }
 
@@ -38,6 +64,7 @@ class Main extends React.Component{
         // Due to API limiting you to only 1000 businesses; offsets higher than 1000 error
         total : data.total < 1000 ? data.total : 1000,
         restaurants : data.businesses,
+        unsortedRestaurants : data.businesses,
         page,
       })
     }catch(err){
@@ -55,10 +82,11 @@ class Main extends React.Component{
     event.preventDefault()
     const target = event.target.name
     let value = event.target.value
-    // Deals with changing page values
+    // Deals with page values being stored as strings
     if(target === `page`){
       value = Number(value)
     }
+    // Deals with users clicking in the pages div, but not on a button
     if(typeof value !== `number` || !isNaN(value)){
       this.setState({[target] : value})
     }
