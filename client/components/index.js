@@ -108,25 +108,36 @@ class Main extends React.Component{
     console.log(this.state)
     const {city, page, total, restaurants, APISort, error} = this.state
     return (
-      <div>
-        <SearchBar handleChange={this.handleChange} handleSubmit={this.handleSubmit} city={city} APISort={APISort}/>
+      <React.Fragment>
+        <SearchBar
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          city={city}
+          APISort={APISort}
+        />
         <SortSelect handleChange={this.handleChange}/>
         {error.length > 0 && <ErrorWarning error={error}/>}
         {
           restaurants.length > 0 &&
-          <div>
-            {
-              restaurants.map(restaurant => (
-                <RestaurantRow
-                  key={restaurant.id}
-                  info={restaurant}
-                />
-              ))
-            }
-            <PageButtons page={page} handleChange={this.handleChange} total={total}/>
-          </div>
+          <React.Fragment>
+            <ul>
+              {
+                restaurants.map(restaurant => (
+                  <RestaurantRow
+                    key={restaurant.id}
+                    info={restaurant}
+                  />
+                ))
+              }
+            </ul>
+            <PageButtons
+              handleChange={this.handleChange}
+              page={page}
+              total={total}
+            />
+          </React.Fragment>
         }
-      </div>
+      </React.Fragment>
     )
   }
 }

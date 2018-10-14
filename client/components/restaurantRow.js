@@ -5,7 +5,7 @@ const RestaurantRow = props => {
   const {name, rating, price, url} = props.info
   const reviewCount = props.info.review_count
   return (
-    <div>
+    <li>
       <span>{name}</span>
       <span>{rating}</span>
       <span>{price}</span>
@@ -18,9 +18,8 @@ const RestaurantRow = props => {
         View on Yelp
           {/* <img src={yelpLogo} alt="yelp" className="yelpLogo"/> */}
         </a>
-
       </span>
-    </div>
+    </li>
   )
 }
 
