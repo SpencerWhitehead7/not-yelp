@@ -30,27 +30,30 @@ class Main extends React.Component{
       this.setState({restaurants : prevState.unsortedRestaurants})
     }
     if(prevState.sortBy !== this.state.sortBy){
-      const sortedRestaurants = [...prevState.unsortedRestaurants]
-      let sortingFn = () => undefined
-      switch(this.state.sortBy){
-        case `ratingHtL`:
-          sortingFn = (a, b) => b.rating - a.rating
-          break
-        case `ratingLtH`:
-          sortingFn = (a, b) => a.rating - b.rating
-          break
-        case `priceLtH`:
-          sortingFn = (a, b) => a.price.length - b.price.length
-          break
-        case `priceHtL`:
-          sortingFn = (a, b) => b.price.length - a.price.length
-          break
-        default:
-          sortingFn = () => undefined
-      }
-      sortedRestaurants.sort(sortingFn)
+      const sortedRestaurants = this.sortRestaurants([...prevState.unsortedRestaurants])
       this.setState({restaurants : sortedRestaurants})
     }
+  }
+
+  sortRestaurants = restaurants => {
+    let sortingFn = () => undefined
+    switch(this.state.sortBy){
+      case `ratingHtL`:
+        sortingFn = (a, b) => b.rating - a.rating
+        break
+      case `ratingLtH`:
+        sortingFn = (a, b) => a.rating - b.rating
+        break
+      case `priceLtH`:
+        sortingFn = (a, b) => a.price.length - b.price.length
+        break
+      case `priceHtL`:
+        sortingFn = (a, b) => b.price.length - a.price.length
+        break
+      default:
+        sortingFn = () => undefined
+    }
+    return restaurants.sort(sortingFn)
   }
 
   callApi = async page => {
@@ -60,10 +63,11 @@ class Main extends React.Component{
       queryString += `&offset=${(page - 1) * 20}`
       const {data} = await axios.get(`/api/yelp/`, {params : {queryString}})
       console.log(data)
+      const sortedRestaurants = this.sortRestaurants([...data.businesses])
       this.setState({
         // Due to API limiting you to only 1000 businesses; offsets higher than 1000 error
         total : data.total < 1000 ? data.total : 1000,
-        restaurants : data.businesses,
+        restaurants : sortedRestaurants,
         unsortedRestaurants : data.businesses,
         page,
       })
