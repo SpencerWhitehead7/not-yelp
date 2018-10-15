@@ -2,11 +2,48 @@
 
 import React from 'react'
 
-const PageButton = props => <button type="button" name="page" value={props.pageNo}>{props.pageNo}</button>
+const PageButton = props => {
+  const {pageNo, page} = props
+  const classNameStr = `uk-button uk-button-small ${page === props.pageNo ? `uk-button-primary` : `uk-button-default`}`
+  return (
+    <button
+      type="button"
+      name="page"
+      value={pageNo}
+      className={classNameStr}
+    >
+      {props.pageNo}
+    </button>
+  )
+}
 
-const Prev = props => <button type="button" name="page" value={props.page - 1}>Prev</button>
+const PrevButton = props => (
+  <React.Fragment>
+    <span uk-icon="chevron-left"/>
+    <button
+      type="button"
+      name="page"
+      value={props.page - 1}
+      className="uk-button uk-button-default uk-button-small"
+    >
+      Prev
+    </button>
+  </React.Fragment>
+)
 
-const Next = props => <button type="button" name="page" value={props.page + 1}>Next</button>
+const NextButton = props => (
+  <React.Fragment>
+    <button
+      type="button"
+      name="page"
+      value={props.page + 1}
+      className="uk-button uk-button-default uk-button-small"
+    >
+    Next
+    </button>
+    <span uk-icon="chevron-right"/>
+  </React.Fragment>
+)
 
 const Filler = () => <span> . . . </span>
 
@@ -15,9 +52,17 @@ const SelectPage = props => {
   return (
     <form onSubmit={jumpToPage}>
       <label htmlFor="jumpTo">
-        Jump To Page:
-        <input type="number" name="jumpTo" defaultValue={page} min="1" max={lastPage} onChange={handleChange}/>
-        <button type="submit">Jump!</button>
+        Jump To Page&nbsp;
+        <input
+          type="number"
+          name="jumpTo"
+          defaultValue={page}
+          min="1"
+          max={lastPage}
+          onChange={handleChange}
+          className="uk-input uk-form-small uk-form-width-xsmall"
+        />
+        <button type="submit" className="uk-button uk-button-primary uk-button-small">Jump!</button>
       </label>
     </form>
   )
@@ -30,43 +75,48 @@ const PageButtons = props => {
   const visibleButtons = []
   let firstButton = 1
   let lastButton = lastPage
-  if(page < 3){
+  if(page < 5){
     firstButton = firstPage
-    lastButton = 5
-  }else if(page >= lastPage - 2){
-    firstButton = lastPage - 4
+    lastButton = lastPage < 9 ? lastPage : 9
+  }else if(page >= lastPage - 4){
+    firstButton = lastPage - 8 >= firstPage ? lastPage - 8 : firstPage
   }else{
-    firstButton = page - 2
-    lastButton = page + 2
+    firstButton = page - 4 >= 1 ? page - 4 : firstPage
+    lastButton = page + 4 <= lastPage ? page + 4 : lastPage
   }
   for(let i = firstButton; i <= lastButton; i++){
     visibleButtons.push(i)
   }
-  return (
-    <React.Fragment>
+  return lastPage > 1 &&
 
-      <div onClick={handleChange}>
+  <React.Fragment>
 
-        {page > firstPage && <Prev page={page}/>}
+    <div onClick={handleChange}>
 
-        {page > 3 && lastPage > 10 && <PageButton pageNo={firstPage}/>}
+      {page > firstPage && <PrevButton page={page}/>}
 
-        {page > 3 && lastPage > 10 && <Filler/>}
+      {page > 5 && lastPage >= 10 && <PageButton pageNo={firstPage} page={page}/>}
 
-        {visibleButtons.map(pageNo => <PageButton pageNo={pageNo} key={pageNo}/>)}
+      {page > 5 && lastPage > 10 && <Filler/>}
 
-        {page < lastPage - 2 && lastPage > 10 && <Filler/>}
+      {visibleButtons.map(pageNo => <PageButton pageNo={pageNo} page={page} key={pageNo}/>)}
 
-        {page < lastPage - 2 && lastPage > 10 && <PageButton pageNo={lastPage}/>}
+      {page < lastPage - 4 && lastPage > 10 && <Filler/>}
 
-        {page < lastPage && <Next page={page}/>}
+      {page < lastPage - 4 && lastPage >= 10 && <PageButton pageNo={lastPage} page={page}/>}
 
-      </div>
+      {page < lastPage && <NextButton page={page}/>}
 
-      <SelectPage handleChange={handleChange} jumpToPage={jumpToPage} page={page} lastPage={lastPage}/>
+    </div>
 
-    </React.Fragment>
-  )
+    <SelectPage
+      handleChange={handleChange}
+      jumpToPage={jumpToPage}
+      page={page}
+      lastPage={lastPage}
+    />
+
+  </React.Fragment>
 }
 
 export default PageButtons
