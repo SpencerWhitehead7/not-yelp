@@ -13,7 +13,7 @@ class Main extends React.Component{
     super()
     this.state = {
       loading : false,
-      city : ``,
+      city : `NYC`,
       page : 1,
       jumpTo : 1,
       total : 0,
@@ -145,7 +145,7 @@ class Main extends React.Component{
         {
           restaurants.length > 0 &&
           <React.Fragment>
-            <ul>
+            <div id="list-container" className="uk-grid">
               {
                 restaurants.map(restaurant => (
                   <RestaurantRow
@@ -154,7 +154,7 @@ class Main extends React.Component{
                   />
                 ))
               }
-            </ul>
+            </div>
             <PageButtons
               handleChange={this.handleChange}
               jumpToPage={this.jumpToPage}
