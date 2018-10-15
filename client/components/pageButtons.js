@@ -26,7 +26,7 @@ const PrevButton = props => (
       value={props.page - 1}
       className="uk-button uk-button-default uk-button-small"
     >
-      Prev
+      PREV
     </button>
   </div>
 )
@@ -39,7 +39,7 @@ const NextButton = props => (
       value={props.page + 1}
       className="uk-button uk-button-default uk-button-small"
     >
-    Next
+    NEXT
     </button>
     <span uk-icon="chevron-right"/>
   </div>
@@ -64,7 +64,7 @@ const SelectPage = props => {
         onChange={handleChange}
         className="uk-input uk-form-small uk-form-width-xsmall"
       />
-      <button type="submit" className="uk-button uk-button-primary uk-button-small">Jump!</button>
+      <button type="submit" className="uk-button uk-button-primary uk-button-small">JUMP!</button>
     </form>
   )
 }
