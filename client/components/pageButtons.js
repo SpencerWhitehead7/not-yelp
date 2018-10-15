@@ -10,8 +10,21 @@ const Next = props => <button type="button" name="page" value={props.page + 1}>N
 
 const Filler = () => <span> . . . </span>
 
+const SelectPage = props => {
+  const {handleChange, jumpToPage, page, lastPage} = props
+  return (
+    <form onSubmit={jumpToPage}>
+      <label htmlFor="jumpTo">
+        Jump To Page:
+        <input type="number" name="jumpTo" defaultValue={page} min="1" max={lastPage} onChange={handleChange}/>
+        <button type="submit">Jump!</button>
+      </label>
+    </form>
+  )
+}
+
 const PageButtons = props => {
-  const {page, handleChange, total} = props
+  const {handleChange, jumpToPage, page, total} = props
   const firstPage = 1
   const lastPage = Math.ceil(total / 20)
   const visibleButtons = []
@@ -33,23 +46,29 @@ const PageButtons = props => {
     }
   }
   return (
-    <div onClick={handleChange}>
+    <React.Fragment>
 
-      {page > firstPage && <Prev page={page}/>}
+      <div onClick={handleChange}>
 
-      {page > 3 && lastPage > 10 && <PageButton pageNo={firstPage}/>}
+        {page > firstPage && <Prev page={page}/>}
 
-      {page > 3 && lastPage > 10 && <Filler/>}
+        {page > 3 && lastPage > 10 && <PageButton pageNo={firstPage}/>}
 
-      {visibleButtons.map(pageNo => <PageButton pageNo={pageNo} key={pageNo}/>)}
+        {page > 3 && lastPage > 10 && <Filler/>}
 
-      {page < lastPage - 2 && lastPage > 10 && <Filler/>}
+        {visibleButtons.map(pageNo => <PageButton pageNo={pageNo} key={pageNo}/>)}
 
-      {page < lastPage - 2 && lastPage > 10 && <PageButton pageNo={lastPage}/>}
+        {page < lastPage - 2 && lastPage > 10 && <Filler/>}
 
-      {page < lastPage && <Next page={page}/>}
+        {page < lastPage - 2 && lastPage > 10 && <PageButton pageNo={lastPage}/>}
 
-    </div>
+        {page < lastPage && <Next page={page}/>}
+
+      </div>
+
+      <SelectPage handleChange={handleChange} jumpToPage={jumpToPage} page={page} lastPage={lastPage}/>
+
+    </React.Fragment>
   )
 }
 

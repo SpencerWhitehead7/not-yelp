@@ -16,6 +16,7 @@ class Main extends React.Component{
       loading : false,
       city : ``,
       page : 1,
+      jumpTo : 1,
       total : 0,
       restaurants : [],
       unsortedRestaurants : [],
@@ -87,8 +88,10 @@ class Main extends React.Component{
     }catch(err){
       this.setState({
         page : 1,
+        jumpTo : 1,
         total : 0,
         restaurants : [],
+        unsortedRestaurants : [],
         error : err.message,
       })
       console.log(err)
@@ -100,10 +103,10 @@ class Main extends React.Component{
     const target = event.target.name
     let value = event.target.type === `checkbox` ? event.target.checked : event.target.value
     // Deals with page values being stored as strings
-    if(target === `page`){
+    if(target === `page` || target === `jumpTo`){
       value = Number(value)
     }
-    // Deals with users clicking in the pages div, but not on a button
+    // Deals with users clicking in the buttons div, but not on a button
     if(typeof value !== `number` || !isNaN(value)){
       this.setState({[target] : value})
     }
@@ -112,6 +115,11 @@ class Main extends React.Component{
   handleSubmit = event => {
     event.preventDefault()
     this.callApi(1)
+  }
+
+  jumpToPage = event => {
+    event.preventDefault()
+    this.setState(prevState => ({page : prevState.jumpTo}))
   }
 
   render(){
@@ -143,6 +151,7 @@ class Main extends React.Component{
             </ul>
             <PageButtons
               handleChange={this.handleChange}
+              jumpToPage={this.jumpToPage}
               page={page}
               total={total}
             />
