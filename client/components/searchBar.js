@@ -5,14 +5,32 @@ const SearchBar = props => {
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="city">
-        Search for Restaurants in:
-        <input type="text" name="city" value={city} onChange={handleChange} placeholder="Enter city name"/>
+        <input
+          type="text"
+          name="city"
+          value={city}
+          onChange={handleChange}
+          placeholder="Enter city name"
+          className="uk-input uk-form-width-large"
+        />
       </label>
-      <button type="submit" disabled={!city}>Search!</button>
+      <button
+        type="submit"
+        disabled={!city}
+        className="uk-button uk-button-primary"
+      >
+        SEARCH!
+      </button>
       <br/>
       <label htmlFor="APISort">
-        Get Yelp results by rating?
-        <input type="checkbox" name="APISort" checked={APISort} onChange={handleChange}/>
+        <input
+          type="checkbox"
+          name="APISort"
+          checked={APISort}
+          onChange={handleChange}
+          className="uk-checkbox"
+        />
+        &nbsp;Get Yelp results by rating
       </label>
     </form>
   )
