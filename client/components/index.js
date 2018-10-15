@@ -108,7 +108,9 @@ class Main extends React.Component{
     }
     // Deals with users clicking in the buttons div, but not on a button
     if(typeof value !== `number` || !isNaN(value)){
-      this.setState({[target] : value})
+      const newState = {[target] : value}
+      if(target === `page`) newState.jumpTo = value
+      this.setState(newState)
     }
   }
 
