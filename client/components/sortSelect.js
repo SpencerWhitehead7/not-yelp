@@ -5,8 +5,12 @@ const SortSelect = props => {
   return (
     <form>
       <label htmlFor="sortBy">
-        Sort Yelp Results By:
-        <select name="sortBy" onChange={handleChange}>
+        Sort page by&nbsp;
+        <select
+          name="sortBy"
+          onChange={handleChange}
+          className="uk-select uk-form-small uk-form-width-medium"
+        >
           <option value="none">None</option>
           <option value="ratingHtL">Rating (high to low)</option>
           <option value="ratingLtH">Rating (low to high)</option>
