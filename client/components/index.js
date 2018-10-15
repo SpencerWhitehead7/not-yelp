@@ -3,7 +3,6 @@ import axios from 'axios'
 
 import SearchBar from './searchBar'
 import SortSelect from './sortSelect'
-import LoadingIcon from './loadingIcon'
 import ErrorWarning from './errorWarning'
 import RestaurantRow from './restaurantRow'
 import PageButtons from './pageButtons'
@@ -137,7 +136,7 @@ class Main extends React.Component{
         />
         <SortSelect handleChange={this.handleChange}/>
         {error.length > 0 && <ErrorWarning error={error}/>}
-        {loading && <LoadingIcon/>}
+        {loading && <div uk-spinner="ratio: 10"/>}
         {
           restaurants.length > 0 &&
           <React.Fragment>
