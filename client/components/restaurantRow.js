@@ -5,7 +5,7 @@ const RestaurantRow = props => {
   const {name, rating, price, url} = props.info
   const reviewCount = props.info.review_count
   return (
-    <li>
+    <li className="uk-flex uk-flex-center">
       <span>{name}</span>
       <span>{rating}</span>
       <span>{price}</span>
