@@ -6,7 +6,7 @@ const SearchBar = props => {
     <form onSubmit={handleSubmit}>
       <label htmlFor="city">
         Search for Restaurants in:
-        <input type="text" name="city" value={city} onChange={handleChange}/>
+        <input type="text" name="city" value={city} onChange={handleChange} placeholder="Enter city name"/>
       </label>
       <button type="submit" disabled={!city}>Search!</button>
       <br/>
