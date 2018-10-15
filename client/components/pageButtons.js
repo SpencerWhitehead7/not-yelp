@@ -53,17 +53,18 @@ const SelectPage = props => {
     <form onSubmit={jumpToPage} className="uk-flex uk-flex-center uk-flex-middle">
       <label htmlFor="jumpTo">
         Jump To Page&nbsp;
-        <input
-          type="number"
-          name="jumpTo"
-          defaultValue={page}
-          min="1"
-          max={lastPage}
-          onChange={handleChange}
-          className="uk-input uk-form-small uk-form-width-xsmall"
-        />
-        <button type="submit" className="uk-button uk-button-primary uk-button-small">Jump!</button>
       </label>
+      <input
+        type="number"
+        name="jumpTo"
+        id="jumpTo"
+        defaultValue={page}
+        min="1"
+        max={lastPage}
+        onChange={handleChange}
+        className="uk-input uk-form-small uk-form-width-xsmall"
+      />
+      <button type="submit" className="uk-button uk-button-primary uk-button-small">Jump!</button>
     </form>
   )
 }
