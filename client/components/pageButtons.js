@@ -18,7 +18,7 @@ const PageButton = props => {
 }
 
 const PrevButton = props => (
-  <React.Fragment>
+  <div>
     <span uk-icon="chevron-left"/>
     <button
       type="button"
@@ -28,11 +28,11 @@ const PrevButton = props => (
     >
       Prev
     </button>
-  </React.Fragment>
+  </div>
 )
 
 const NextButton = props => (
-  <React.Fragment>
+  <div>
     <button
       type="button"
       name="page"
@@ -42,7 +42,7 @@ const NextButton = props => (
     Next
     </button>
     <span uk-icon="chevron-right"/>
-  </React.Fragment>
+  </div>
 )
 
 const Filler = () => <span> . . . </span>
@@ -50,7 +50,7 @@ const Filler = () => <span> . . . </span>
 const SelectPage = props => {
   const {handleChange, jumpToPage, page, lastPage} = props
   return (
-    <form onSubmit={jumpToPage}>
+    <form onSubmit={jumpToPage} className="uk-flex uk-flex-center uk-flex-middle">
       <label htmlFor="jumpTo">
         Jump To Page&nbsp;
         <input
@@ -91,7 +91,7 @@ const PageButtons = props => {
 
   <React.Fragment>
 
-    <div onClick={handleChange}>
+    <div onClick={handleChange} className="uk-flex uk-flex-center uk-flex-wrap uk-flex-middle uk-flex-none">
 
       {page > firstPage && <PrevButton page={page}/>}
 
