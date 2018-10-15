@@ -3,7 +3,7 @@ import React from 'react'
 const SortSelect = props => {
   const {handleChange} = props
   return (
-    <form>
+    <form className="uk-flex uk-flex-column uk-flex-center uk-flex-middle">
       <label htmlFor="sortBy">
         Sort page by&nbsp;
         <select
