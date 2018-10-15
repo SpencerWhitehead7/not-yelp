@@ -3,25 +3,26 @@ import React from 'react'
 const SearchBar = props => {
   const {handleChange, handleSubmit, city, APISort} = props
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="city">
-        <input
-          type="text"
-          name="city"
-          value={city}
-          onChange={handleChange}
-          placeholder="Enter city name"
-          className="uk-input uk-form-width-large"
-        />
-      </label>
-      <button
-        type="submit"
-        disabled={!city}
-        className="uk-button uk-button-primary"
-      >
+    <form onSubmit={handleSubmit} className="uk-flex uk-flex-column uk-flex-center uk-flex-middle">
+      <div>
+        <label htmlFor="city">
+          <input
+            type="text"
+            name="city"
+            value={city}
+            onChange={handleChange}
+            placeholder="Enter city name"
+            className="uk-input uk-form-width-medium"
+          />
+        </label>
+        <button
+          type="submit"
+          disabled={!city}
+          className="uk-button uk-button-primary"
+        >
         SEARCH!
-      </button>
-      <br/>
+        </button>
+      </div>
       <label htmlFor="APISort">
         <input
           type="checkbox"
