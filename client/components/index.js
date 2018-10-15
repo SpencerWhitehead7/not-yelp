@@ -141,7 +141,11 @@ class Main extends React.Component{
         />
         <SortSelect handleChange={this.handleChange}/>
         {error.length > 0 && <ErrorWarning error={error}/>}
-        {loading && <div uk-spinner="ratio: 10" className="uk-flex uk-flex-center"/>}
+        {loading && <div
+          uk-spinner="ratio: 10"
+          id="loading-spinner"
+          className="uk-flex uk-flex-center"
+        />}
         {
           restaurants.length > 0 &&
           <React.Fragment>

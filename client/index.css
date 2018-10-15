@@ -2,6 +2,14 @@
   margin: 5vh 25vw;
 }
 
+#jump-to {
+  margin: 5vh 0 10vh 0;
+}
+
+#loading-spinner {
+  margin: 10vh 0
+}
+
 @media only screen and (max-width : 1024px) {
   #list-container {
     margin: 5vh 20vw;
@@ -17,5 +25,9 @@
 @media only screen and (max-width : 480px) {
   #list-container {
     margin: 5vh 0;
-  } 
+  }
+
+  #button-row {
+    margin: 0 5vw;
+  }
 }

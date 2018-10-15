@@ -50,7 +50,7 @@ const Filler = () => <span> . . . </span>
 const SelectPage = props => {
   const {handleChange, jumpToPage, page, lastPage} = props
   return (
-    <form onSubmit={jumpToPage} className="uk-flex uk-flex-center uk-flex-middle">
+    <form onSubmit={jumpToPage} id="jump-to" className="uk-flex uk-flex-center uk-flex-middle">
       <label htmlFor="jumpTo">
         Jump To Page&nbsp;
       </label>
@@ -92,7 +92,7 @@ const PageButtons = props => {
 
   <React.Fragment>
 
-    <div onClick={handleChange} className="uk-flex uk-flex-center uk-flex-wrap uk-flex-middle uk-flex-none">
+    <div onClick={handleChange} id="button-row" className="uk-flex uk-flex-center uk-flex-wrap uk-flex-middle uk-flex-none">
 
       {page > firstPage && <PrevButton page={page}/>}
 
