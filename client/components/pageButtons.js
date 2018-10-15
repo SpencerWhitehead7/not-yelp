@@ -28,22 +28,19 @@ const PageButtons = props => {
   const firstPage = 1
   const lastPage = Math.ceil(total / 20)
   const visibleButtons = []
-  if(lastPage <= 10){
-    for(let i = 1; i <= lastPage; i++){
-      visibleButtons.push(i)
-    }
-  }else if(page < 3){
-    for(let i = firstPage; i <= 5; i++){
-      visibleButtons.push(i)
-    }
+  let firstButton = 1
+  let lastButton = lastPage
+  if(page < 3){
+    firstButton = firstPage
+    lastButton = 5
   }else if(page >= lastPage - 2){
-    for(let i = lastPage - 2; i <= lastPage; i++){
-      visibleButtons.push(i)
-    }
+    firstButton = lastPage - 4
   }else{
-    for(let i = page - 2; i <= page + 2; i++){
-      visibleButtons.push(i)
-    }
+    firstButton = page - 2
+    lastButton = page + 2
+  }
+  for(let i = firstButton; i <= lastButton; i++){
+    visibleButtons.push(i)
   }
   return (
     <React.Fragment>
