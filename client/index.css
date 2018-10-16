@@ -1,10 +1,10 @@
+#loading-spinner {
+  margin: 10vh 0
+}
+
 #list-container {
   margin: 5vh 25vw;
 }  
-
-#jump-to {
-  margin: 5vh 0 10vh 0;
-}
 
 .stars {
   width: 164px;
@@ -16,8 +16,8 @@
   height: 38px;
 }
 
-#loading-spinner {
-  margin: 10vh 0
+#jump-to {
+  margin: 5vh 0 10vh 0;
 }
 
 @media only screen and (max-width : 1024px) {
