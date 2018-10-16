@@ -22,7 +22,7 @@ const SearchBar = props => {
           SEARCH!
         </button>
       </div>
-      <div>
+      <div id="api-sort">
         <input
           type="checkbox"
           name="APISort"
