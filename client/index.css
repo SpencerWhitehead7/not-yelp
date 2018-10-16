@@ -13,7 +13,12 @@ html {
 
 #list-container {
   margin: 5vh 25vw;
-}  
+}
+
+.no-margin {
+  padding: 0;
+  margin: 0;
+}
 
 .stars {
   width: 164px;

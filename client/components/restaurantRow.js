@@ -12,23 +12,26 @@ const RestaurantRow = props => {
     <div className="uk-width-1-1 uk-grid uk-grid-small uk-child-width-1-1 uk-card uk-card-default uk-card-small uk-card-hover">
       <div className="uk-card-header">
         <h4>{name}</h4>
-        <p>{categoriesStr}</p>
+        <p>
+          {price}
+          &nbsp;-&nbsp;
+          {categoriesStr}
+        </p>
       </div>
-      <div className="uk-card-body uk-grid uk-grid-collapse uk-child-width-1-3">
+      <div className="uk-card-body uk-flex uk-flex-around">
         <div>
-          <img data-src={imgs[stars]} alt="rating" width="164px" height="28px" uk-img="true" className="stars"/>
-          <span>
+          <p className="no-margin">
             {reviewCount}
             &nbsp;Reviews
-          </span>
+          </p>
+          <img data-src={imgs[stars]} alt="rating" width="164px" height="28px" uk-img="true" className="stars"/>
         </div>
-        <p className="uk-text-center">{price}</p>
         <div>
           <a href={url}>
-            <p>
+            <p className="no-margin">
               View on
-              <img src={imgs.yelpLogo} alt="yelp" className="yelp-logo"/>
             </p>
+            <img src={imgs.yelpLogo} alt="yelp" className="yelp-logo"/>
           </a>
         </div>
       </div>
