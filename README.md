@@ -1,6 +1,10 @@
 # Rowan Restaurant Finder
 
-## Build and run directions
+## Build and Run Directions
+
+Go to https://rowan-restaurant-finder.herokuapp.com/ and use app
+
+OR:
 
 Clone repo
 
@@ -10,7 +14,11 @@ Run ```npm install``` in command line from project folder
 
 Run ```npm run start``` in command line from project folder
 
+(use ```npm run start-dev``` instead if you want to be able to change files and see the results (after a reload) on the localhost site)
+
 Go to http://localhost:1337 in browser
+
+Of course, you can clone the repo and look at the code without the secrets.js file, you just can't (successfully) call the Yelp API.
 
 ## Technologies
 
@@ -39,3 +47,13 @@ Allow sorting by price and rating.
 Display 20 restaurants at a time, with each linked to the yelp page for that restaurant.
 
 Any features beyond this are optional.
+
+## Optional features
+
+Responsive design works on screen sizes from full desktop to tiny mobile
+
+Dynamically updating page buttons, jump to page feature
+
+Optionally query Yelp API for their highest rated restaurants in addition to sorting restaurants on the page by price and rating
+
+Site's graphics and icons adhere to Yelp's requirements as found here https://www.yelp.com/brand and here https://www.yelp.com/developers/display_requirements
