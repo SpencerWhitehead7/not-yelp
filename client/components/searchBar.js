@@ -1,7 +1,7 @@
 import React from 'react'
 
 const SearchBar = props => {
-  const {handleChange, handleSubmit, city, APISort} = props
+  const {handleChange, handleSubmit, city, APISort, APIIsOpenFilter} = props
   return (
     <form onSubmit={handleSubmit} className="uk-flex uk-flex-column uk-flex-center uk-flex-middle">
       <div>
@@ -22,7 +22,7 @@ const SearchBar = props => {
           SEARCH!
         </button>
       </div>
-      <div id="api-sort">
+      <div className="search-checkboxes">
         <input
           type="checkbox"
           name="APISort"
@@ -33,6 +33,19 @@ const SearchBar = props => {
         />
         <label htmlFor="APISort">
         &nbsp;Get Yelp results by rating
+        </label>
+      </div>
+      <div className="search-checkboxes">
+        <input
+          type="checkbox"
+          name="APIIsOpenFilter"
+          id="APIIsOpenFilter"
+          checked={APIIsOpenFilter}
+          onChange={handleChange}
+          className="uk-checkbox"
+        />
+        <label htmlFor="APIIsOpenFilter">
+        &nbsp;Only get currently open restaurants
         </label>
       </div>
     </form>

@@ -2,11 +2,6 @@ html {
   background-color: #fbf9f3;
 }
 
-#api-sort {
-  padding: 3px;
-  margin: 2px;
-}
-
 #loading-spinner {
   margin: 10vh 0
 }

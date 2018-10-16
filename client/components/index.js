@@ -21,6 +21,7 @@ class Main extends React.Component{
       unsortedRestaurants : [],
       sortBy : `none`,
       APISort : false,
+      APIIsOpenFilter : false,
       error : ``,
     }
   }
@@ -65,6 +66,7 @@ class Main extends React.Component{
     queryString += `&offset=${(page - 1) * 20}`
     // The only (relevant to this project) sorting the API supports is ratingHtL (it uses weighted average, but my sort uses raw rating number)
     queryString += this.state.APISort ? `&sort_by=rating` : ``
+    queryString += this.state.APIIsOpenFilter ? `&open_now=true` : ``
 
     this.setState({
       loading : true,
@@ -128,7 +130,7 @@ class Main extends React.Component{
 
   render(){
     console.log(this.state)
-    const {loading, city, page, total, restaurants, APISort, error} = this.state
+    const {loading, city, page, total, restaurants, APISort, APIIsOpenFilter, error} = this.state
     return (
       <React.Fragment>
         <h1 className="uk-heading-primary uk-flex uk-flex-center">
@@ -141,6 +143,7 @@ class Main extends React.Component{
           handleSubmit={this.handleSubmit}
           city={city}
           APISort={APISort}
+          APIIsOpenFilter={APIIsOpenFilter}
         />
         <SortSelect handleChange={this.handleChange}/>
         {error.length > 0 && <ErrorWarning error={error}/>}
