@@ -13,7 +13,7 @@ class Main extends React.Component{
     super()
     this.state = {
       loading : false,
-      city : `NYC`,
+      city : ``,
       page : 1,
       jumpTo : 1,
       total : 0,
@@ -60,18 +60,19 @@ class Main extends React.Component{
   }
 
   callApi = page => {
-    try{
-      let queryString = `?categories=restaurants`
-      queryString += `&location=${this.state.city}`
-      queryString += `&offset=${(page - 1) * 20}`
-      // The only (relevant to this project) sorting the API supports is ratingHtL (it uses weighted average, but my sort uses raw rating number)
-      queryString += this.state.APISort ? `&sort_by=rating` : ``
+    let queryString = `?categories=restaurants`
+    queryString += `&location=${this.state.city}`
+    queryString += `&offset=${(page - 1) * 20}`
+    // The only (relevant to this project) sorting the API supports is ratingHtL (it uses weighted average, but my sort uses raw rating number)
+    queryString += this.state.APISort ? `&sort_by=rating` : ``
 
-      this.setState({
-        loading : true,
-        restaurants : [],
-        unsortedRestaurants : [],
-      }, async () => {
+    this.setState({
+      loading : true,
+      restaurants : [],
+      unsortedRestaurants : [],
+      error : ``,
+    }, async () => {
+      try{
         const {data} = await axios.get(`/api/yelp/`, {params : {queryString}})
         console.log(data)
         const sortedRestaurants = this.sortRestaurants([...data.businesses])
@@ -81,20 +82,22 @@ class Main extends React.Component{
           total : data.total < 1000 ? data.total : 1000,
           restaurants : sortedRestaurants,
           unsortedRestaurants : data.businesses,
+          error : ``,
           page,
         })
-      })
-    }catch(err){
-      this.setState({
-        page : 1,
-        jumpTo : 1,
-        total : 0,
-        restaurants : [],
-        unsortedRestaurants : [],
-        error : err.message,
-      })
-      console.log(err)
-    }
+      }catch(err){
+        this.setState({
+          loading : false,
+          page : 1,
+          jumpTo : 1,
+          total : 0,
+          restaurants : [],
+          unsortedRestaurants : [],
+          error : err.message,
+        })
+        console.log(err)
+      }
+    })
   }
 
   handleChange = event => {
