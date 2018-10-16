@@ -56,4 +56,6 @@ Dynamically updating page buttons, jump to page feature
 
 Optionally query Yelp API for their highest rated restaurants in addition to sorting restaurants on the page by price and rating
 
+Optionally query Yelp API with open-now and price filters
+
 Site's graphics and icons adhere to Yelp's requirements as found here https://www.yelp.com/brand and here https://www.yelp.com/developers/display_requirements
