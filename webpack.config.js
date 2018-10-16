@@ -26,7 +26,8 @@ module.exports = {
           {
             loader : `url-loader`,
             options : {
-              limit : 8192,
+              limit : 50000, // kinda a magic number for maximum size of file to inline in bundle
+              // works much more simply and reliably than allowing it to fallback to file loader
             },
           },
         ],
