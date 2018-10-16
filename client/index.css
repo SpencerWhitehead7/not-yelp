@@ -1,9 +1,19 @@
 #list-container {
   margin: 5vh 25vw;
-}
+}  
 
 #jump-to {
   margin: 5vh 0 10vh 0;
+}
+
+.stars {
+  width: 164px;
+  height: 28px;
+}
+
+.yelp-logo {
+  width: 100px;
+  height: 38px;
 }
 
 #loading-spinner {
