@@ -9,7 +9,11 @@ const ErrorWarning = props => {
     errorMessage = `We're sorry, there was an error. Please try again.`
   }
   return (
-    <span>{errorMessage}</span>
+    <div id="error" className="uk-flex uk-flex-center uk-flex-middle">
+      <span className="uk-text-danger uk-text-center uk-text-large">
+        {errorMessage}
+      </span>
+    </div>
   )
 }
 
