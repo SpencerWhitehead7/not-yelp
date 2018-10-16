@@ -1,4 +1,5 @@
 import React from 'react'
+
 import imgs from './imageImports'
 
 const RestaurantRow = props => {

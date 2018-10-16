@@ -39,7 +39,7 @@ const NextButton = props => (
       value={props.page + 1}
       className="uk-button uk-button-default uk-button-small"
     >
-    NEXT
+      NEXT
     </button>
     <span uk-icon="chevron-right"/>
   </div>
@@ -89,34 +89,22 @@ const PageButtons = props => {
     visibleButtons.push(i)
   }
   return lastPage > 1 &&
-
   <React.Fragment>
-
     <div onClick={handleChange} id="button-row" className="uk-flex uk-flex-center uk-flex-wrap uk-flex-middle uk-flex-none">
-
       {page > firstPage && <PrevButton page={page}/>}
-
       {page > 5 && lastPage >= 10 && <PageButton pageNo={firstPage} page={page}/>}
-
       {page > 5 && lastPage > 10 && <Filler/>}
-
       {visibleButtons.map(pageNo => <PageButton pageNo={pageNo} page={page} key={pageNo}/>)}
-
       {page < lastPage - 4 && lastPage > 10 && <Filler/>}
-
       {page < lastPage - 4 && lastPage >= 10 && <PageButton pageNo={lastPage} page={page}/>}
-
       {page < lastPage && <NextButton page={page}/>}
-
     </div>
-
     <SelectPage
       handleChange={handleChange}
       jumpToPage={jumpToPage}
       page={page}
       lastPage={lastPage}
     />
-
   </React.Fragment>
 }
 
