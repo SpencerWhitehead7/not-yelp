@@ -2,6 +2,10 @@ html {
   background-color: #fbf9f3;
 }
 
+#sort-page-by {
+  margin: 10px 0;
+}
+
 #loading-spinner {
   margin: 10vh 0
 }
