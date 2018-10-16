@@ -21,6 +21,7 @@ class Main extends React.Component{
       unsortedRestaurants : [],
       sortBy : `none`,
       APISort : false,
+      priceFilter : 4,
       APIIsOpenFilter : false,
       error : ``,
     }
@@ -67,7 +68,12 @@ class Main extends React.Component{
     // The only (relevant to this project) sorting the API supports is ratingHtL (it uses weighted average, but my sort uses raw rating number)
     queryString += this.state.APISort ? `&sort_by=rating` : ``
     queryString += this.state.APIIsOpenFilter ? `&open_now=true` : ``
-
+    const priceFilterQuery = []
+    for(let i = 0; i < this.state.priceFilter; i++){
+      priceFilterQuery.push(`${i + 1}`)
+    }
+    queryString += `&price=${priceFilterQuery.join(`,`)}`
+    console.log(queryString)
     this.setState({
       loading : true,
       restaurants : [],
@@ -107,7 +113,9 @@ class Main extends React.Component{
     const target = event.target.name
     let value = event.target.type === `checkbox` ? event.target.checked : event.target.value
     // Deals with page values being stored as strings
-    if(target === `page` || target === `jumpTo`){
+    if(target === `page` ||
+        target === `jumpTo` ||
+        target === `priceFilter`){
       value = Number(value)
     }
     // Deals with users clicking in the buttons div, but not on a button
@@ -130,7 +138,7 @@ class Main extends React.Component{
 
   render(){
     console.log(this.state)
-    const {loading, city, page, total, restaurants, APISort, APIIsOpenFilter, error} = this.state
+    const {loading, city, page, total, restaurants, APISort, APIIsOpenFilter, priceFilter, error} = this.state
     return (
       <React.Fragment>
         <h1 className="uk-heading-primary uk-flex uk-flex-center">
@@ -144,6 +152,7 @@ class Main extends React.Component{
           city={city}
           APISort={APISort}
           APIIsOpenFilter={APIIsOpenFilter}
+          priceFilter={priceFilter}
         />
         <SortSelect handleChange={this.handleChange}/>
         {error.length > 0 && <ErrorWarning error={error}/>}
