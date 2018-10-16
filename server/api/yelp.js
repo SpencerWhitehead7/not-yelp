@@ -1,6 +1,8 @@
 const router = require(`express`).Router()
 const axios = require(`axios`)
-const YELP_AUTH_STR = require(process.env.YELP_AUTH_STR || `../../secrets`)
+/* eslint-disable global-require */
+const YELP_AUTH_STR = process.env.YELP_AUTH_STR || require(`../../secrets`)
+/* eslint-enable global-require */
 
 // GET /api/yelp
 router.get(`/`, async (req, res, next) => {

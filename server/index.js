@@ -41,4 +41,4 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 1337
 
 // Start server
-app.listen(PORT, () => console.log(`App listening on http://localhost:${PORT}\n`))
+app.listen(PORT, () => console.log(`\nApp listening on http://localhost:${PORT}\n`))
