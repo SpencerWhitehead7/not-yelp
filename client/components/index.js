@@ -138,7 +138,7 @@ class Main extends React.Component{
 
   render(){
     console.log(this.state)
-    const {loading, city, page, total, restaurants, APISort, APIIsOpenFilter, priceFilter, error} = this.state
+    const {loading, city, page, total, restaurants, APISort, APIIsOpenFilter, error} = this.state
     return (
       <React.Fragment>
         <h1 className="uk-heading-primary uk-flex uk-flex-center">
@@ -152,7 +152,6 @@ class Main extends React.Component{
           city={city}
           APISort={APISort}
           APIIsOpenFilter={APIIsOpenFilter}
-          priceFilter={priceFilter}
         />
         <SortSelect handleChange={this.handleChange}/>
         {error.length > 0 && <ErrorWarning error={error}/>}
