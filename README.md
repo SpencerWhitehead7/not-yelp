@@ -18,7 +18,7 @@ Run ```npm run start``` in command line from project folder
 
 Go to http://localhost:1337 in browser
 
-Of course, you can clone the repo and look at the code without the secrets.js file, you just can't (successfully) call the Yelp API.
+Of course, you can clone the repo, look at the code, and run on a localhost without the secrets.js file, you just can't (successfully) call the Yelp API.
 
 ## Technologies
 

@@ -12,33 +12,35 @@ class Main extends React.Component{
   constructor(){
     super()
     this.state = {
-      loading : false,
       city : ``,
       page : 1,
-      jumpTo : 1,
+      priceFilter : 4,
+      APISort : false,
+      APIIsOpenFilter : false,
       total : 0,
+      jumpTo : 1,
       restaurants : [],
       unsortedRestaurants : [],
       sortBy : `none`,
-      APISort : false,
-      priceFilter : 4,
-      APIIsOpenFilter : false,
+      loading : false,
       error : ``,
     }
   }
 
+  // LIFECYCLE METHODS START
+
   componentDidUpdate = (prevProps, prevState) => {
     if(prevState.page !== this.state.page){
       this.callApi(this.state.page)
-    }
-    if(prevState.sortBy !== this.state.sortBy && this.state.sortBy === `none`){
-      this.setState({restaurants : prevState.unsortedRestaurants})
     }
     if(prevState.sortBy !== this.state.sortBy){
       const sortedRestaurants = this.sortRestaurants([...prevState.unsortedRestaurants])
       this.setState({restaurants : sortedRestaurants})
     }
   }
+
+  // LIFECYCLE METHODS END
+  // UTILITY METHODS START
 
   sortRestaurants = restaurants => {
     let sortingFn = () => undefined
@@ -56,16 +58,16 @@ class Main extends React.Component{
         sortingFn = (a, b) => b.price.length - a.price.length
         break
       default:
-        sortingFn = () => undefined
+        return restaurants
     }
     return restaurants.sort(sortingFn)
   }
 
   callApi = page => {
+    // construct query string
     let queryString = `?categories=restaurants`
     queryString += `&location=${this.state.city}`
     queryString += `&offset=${(page - 1) * 20}`
-    // The only (relevant to this project) sorting the API supports is ratingHtL (it uses weighted average, but my sort uses raw rating number)
     queryString += this.state.APISort ? `&sort_by=rating` : ``
     queryString += this.state.APIIsOpenFilter ? `&open_now=true` : ``
     const priceFilterQuery = []
@@ -73,7 +75,7 @@ class Main extends React.Component{
       priceFilterQuery.push(`${i + 1}`)
     }
     queryString += `&price=${priceFilterQuery.join(`,`)}`
-    console.log(queryString)
+    // set loading state and make request with query string
     this.setState({
       loading : true,
       restaurants : [],
@@ -81,26 +83,27 @@ class Main extends React.Component{
       error : ``,
     }, async () => {
       try{
+        // Call succeeds, set new data to state
         const {data} = await axios.get(`/api/yelp/`, {params : {queryString}})
-        console.log(data)
         const sortedRestaurants = this.sortRestaurants([...data.businesses])
         this.setState({
-          loading : false,
           // Due to API limiting you to only 1000 businesses; offsets higher than 1000 error
+          page,
           total : data.total < 1000 ? data.total : 1000,
           restaurants : sortedRestaurants,
           unsortedRestaurants : data.businesses,
+          loading : false,
           error : ``,
-          page,
         })
       }catch(err){
+        // Call fails, set errored state
         this.setState({
-          loading : false,
           page : 1,
-          jumpTo : 1,
           total : 0,
+          jumpTo : 1,
           restaurants : [],
           unsortedRestaurants : [],
+          loading : false,
           error : err.message,
         })
         console.log(err)
@@ -108,11 +111,14 @@ class Main extends React.Component{
     })
   }
 
+  // UTILITY METHODS END
+  // FORM CONTROLS START
+
   handleChange = event => {
     event.stopPropagation()
     const target = event.target.name
     let value = event.target.type === `checkbox` ? event.target.checked : event.target.value
-    // Deals with page values being stored as strings
+    // Deals with these forms' numeric values being stored as strings
     if(target === `page` ||
         target === `jumpTo` ||
         target === `priceFilter`){
@@ -136,16 +142,13 @@ class Main extends React.Component{
     this.setState(prevState => ({page : prevState.jumpTo}))
   }
 
+  // FORM CONTROLS END
+
   render(){
-    console.log(this.state)
     const {loading, city, page, total, restaurants, APISort, APIIsOpenFilter, error} = this.state
     return (
       <React.Fragment>
-        <h1 className="uk-heading-primary uk-flex uk-flex-center">
-          Rowan's
-          <wbr/>
-          (/Yelp's) Restaurant Finder
-        </h1>
+        <h1 className="uk-text-center">Rowan's(/Yelp's) Restaurant Finder</h1>
         <SearchBar
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
