@@ -148,7 +148,7 @@ class Main extends React.Component{
     const {loading, city, page, total, restaurants, APISort, APIIsOpenFilter, error} = this.state
     return (
       <React.Fragment>
-        <h1 className="uk-text-center">Rowan's(/Yelp's) Restaurant Finder</h1>
+        <h1 className="uk-text-center">Not-Yelp</h1>
         <SearchBar
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
