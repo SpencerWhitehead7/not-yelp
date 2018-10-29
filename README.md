@@ -32,21 +32,21 @@ UIKit because it's lightweight, I liked the look of it and wanted everything to 
 
 ## Regrets
 
-This has no tests. With more time and a detailed, finely broken down set of planned features, I would have preferred to at least unit test everything. Unfortunately, I was building the site out as I thought of new features (and frequently tweaking them), and didn't have a detailed development plan, which does not lend itself to TDD.
+With a detailed, finely broken down set of planned features, I would have preferred to test everything, but unfortunately, I was building the site out as I thought of new features (and frequently tweaking them), and didn't have a detailed development plan.
 
-I think it would have been super cool to have a map with markers for each of the restaurants linked to their Yelp pages. However, this was way outside the spec, so I invested the time in styling and refactoring instead.
+I also think it would have been super cool to have a map with markers for each of the restaurants linked to their Yelp pages.
 
 ## Spec
 
-Use the Yelp! Api to retrieve data on restaurants.
+Use the Yelp! Api to retrieve data on restaurants
 
-Allow users to search for restaurants by city.
+Allow users to search for restaurants by city
 
-Allow sorting by price and rating.
+Allow sorting by price and rating
 
-Display 20 restaurants at a time, with each linked to the yelp page for that restaurant.
+Display 20 restaurants at a time, with each linked to the yelp page for that restaurant
 
-Any features beyond this are optional.
+Any features beyond this are optional
 
 ## Optional features
 
