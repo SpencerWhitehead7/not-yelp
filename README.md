@@ -1,8 +1,8 @@
-# Rowan Restaurant Finder
+# Not-Yelp
 
 ## Build and Run Directions
 
-Go to https://rowan-restaurant-finder.herokuapp.com/ and use app
+Go to https://sw7-not-yelp.herokuapp.com/ and use app
 
 OR:
 

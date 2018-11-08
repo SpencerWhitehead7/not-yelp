@@ -1,11 +1,16 @@
 const express = require(`express`)
-const volleyball = require(`volleyball`)
 const path = require(`path`)
 
 const app = express()
 
-// Logging middleware
-app.use(volleyball)
+// Logging middleware for development environment
+if(!process.env.NODE_ENV){
+  /* eslint-disable global-require */
+  app.use(require(`volleyball`))
+  /* eslint-enable global-require */
+}
+
+console.log(process.env.NODE_ENV)
 
 // Body parsing middleware
 app.use(express.json())
