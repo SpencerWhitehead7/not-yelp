@@ -7,9 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .js,.jsx --ignore-pattern /public/*",
     "lint-fix": "eslint . --ext .js,.jsx --fix --ignore-pattern /public/*",
-    "start": "node server",
+    "start": "serve -s build",
+    "build": "webpack -p",
     "start-dev": "webpack -w & nodemon server.js",
-    "heroku-postbuild": "webpack -p"
+    "heroku-postbuild": "npm run build"
   },
   "author": "spencer",
   "license": "Unlicense",
