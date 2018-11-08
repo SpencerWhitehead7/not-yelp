@@ -10,8 +10,6 @@ if(!process.env.NODE_ENV){
   /* eslint-enable global-require */
 }
 
-console.log(process.env.NODE_ENV)
-
 // Body parsing middleware
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
